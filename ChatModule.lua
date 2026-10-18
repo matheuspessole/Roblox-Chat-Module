@@ -9,15 +9,30 @@ local RS = game:GetService("ReplicatedStorage")
 local TextChatService = game:GetService("TextChatService")
 local event = RS:WaitForChild("ChatSystem")
 
-function ChatService:SendMessage(player, message, textColor)
+local Styles = {
+	Default = {
+		prefix = "[ChatService]: ",
+		color = Color3.fromRGB(52, 184, 255)
+	},
+	LOOT = {
+		prefix = "[LOOT]: ",
+		color = Color3.fromRGB(255, 215, 0)
+	}
+}
+
+function ChatService:SendMessage(player, message, textColor, typeMessage)
 	if event then
-		event:FireClient(player, "[ChatService]: ", Color3.fromRGB(52, 184, 255), message, textColor)
+		if Styles[typeMessage] then
+			event:FireClient(player, Styles[typeMessage].prefix, Styles[typeMessage].color, message, textColor)
+		else
+			event:FireClient(player, Styles["Default"].prefix, Styles["Default"].color, message, textColor)
+		end
 	end
 end
 
-function ChatService:SendAll(message, textColor)
+function ChatService:SendAll(message, textColor, typeMessage)
 	for _, player in ipairs(Players:GetPlayers()) do
-		ChatService:SendMessage(player, message, textColor)
+		ChatService:SendMessage(player, message, textColor, typeMessage)
 	end
 end
 
