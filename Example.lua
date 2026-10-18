@@ -5,6 +5,6 @@ module:Init()
 wait(1) -- wait for studio to load charater yk
 module:SendAll("Test message", Color3.fromRGB(255, 255, 255))
 
-or if want a style
+-- or if you want a style
 
 module:SendAll("TrippDevWorks recieve a Legendary Sword!", Color3.fromRGB(255, 255, 255), "LOOT")
